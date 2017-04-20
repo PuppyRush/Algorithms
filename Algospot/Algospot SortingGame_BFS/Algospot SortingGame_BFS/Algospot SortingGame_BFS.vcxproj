@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{11784F10-C4B7-439D-853D-DEF604F52A62}</ProjectGuid>
+    <ProjectGuid>{5EB87838-6F6E-4D5C-8315-8CFA1BCCCBFA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>BaekJoon112772SATSSC</RootNamespace>
+    <RootNamespace>AlgospotSortingGame_BFS</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,7 +147,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="solve.cpp" />
-    <ClCompile Include="solve2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

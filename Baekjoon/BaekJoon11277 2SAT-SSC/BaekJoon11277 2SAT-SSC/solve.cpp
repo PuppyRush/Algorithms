@@ -39,6 +39,11 @@ typedef std::vector<string> VSTR;
 
 using namespace std;
 
+inline int neg(C_INT x, C_INT SIZE) {
+	if (x > SIZE) return x - SIZE;
+	else return x + SIZE;
+}
+
 struct SSC{
 		
 private:
@@ -96,51 +101,49 @@ public:
 
 };
 
-int solve(VINT &ssc, V2INT &src) {
+void solve(VINT &ssc, V2INT &src, C_INT edgeCount) {
 
-	int l = 0;
-	FOR(l, ssc.size()-1) {
-		if (ssc[l] == ssc[l + 1]) {
-			return 0;
+	for(int l=1 ; l <= edgeCount; l++){
+		if (ssc[l] == ssc[neg(l,src.size()/2)]) {
+			cout << "0" << endl;
+			return;
 		}
 	}
-	return 1;
+	
+	/*for (int l = 1; l <= edgeCount; l++) {
+		cout << (ssc[l] < ssc[neg(l, src.size() / 2)]) << " ";
+	}*/
+
 }
 
 
-int main() {
+ int main() {
 
-	//int caseSize = 0;
-	//scanf("%d", &caseSize);
+	int edgeCount, clauseCount;
+	scanf("%d %d", &edgeCount, &clauseCount);
 
-	//int i = 0;
-	//FOR(i, caseSize) {
-		int edgeCount, clauseCount;
-		scanf("%d %d", &edgeCount, &clauseCount);
+	auto src = MAKE_V2INT(edgeCount*2+1, 0);
 
-		auto src = MAKE_V2INT(edgeCount*2, 0);
-
-		int l = 0;
-		FOR(l, clauseCount) {
-			int e[2];
-			int t = 0;
-			FOR(t, 2) {
-				scanf("%d", &e[t]);
-				if (e[t] < 0) {
-					e[t] = (-e[t]) * 2-1;
-				}
-				else
-					e[t] = 2 * e[t] - 2;
-			}
-			src[e[0]].push_back(e[1]);
+	int l = 0;
+	FOR(l, clauseCount) {
+		int e[2];
+		int t = 0;
+		FOR(t, 2) {
+			scanf("%d", &e[t]);
+			if (e[t] < 0)
+				e[t] = -e[t] + edgeCount;
+				
 		}
+		src[neg(e[0], edgeCount)].push_back(e[1]);
+		src[neg(e[1], edgeCount)].push_back(e[0]);
+	}
 		
-		SSC tarjan(src);
-		auto ssc = tarjan.tarjanSCC();
-		reverse(ssc.begin(), ssc.end());
+	SSC tarjan(src);
+	auto ssc = tarjan.tarjanSCC();
+	//reverse(ssc.begin(), ssc.end());
 		
-		cout << solve(ssc, src) << endl;
-	//}
+	solve(ssc, src, edgeCount);
+	
 
 	return 0;
 }
