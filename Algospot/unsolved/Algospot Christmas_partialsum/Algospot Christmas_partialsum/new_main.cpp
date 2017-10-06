@@ -68,6 +68,20 @@ int GetPartialSum(int from, int to) {
 }
 
 
+int isValidatedRangedSum(const VINT &range, C_INT mans) {
+	int accu = 0;
+	int prev = 0, present = 0;
+	for(int i=0 ; i < range.size() ; i++){
+		present = prev + (range[i] - 1);
+		if (GetPartialSum(prev, present) % mans == 0)
+			accu++;
+		prev = present + 1;
+		
+	}
+	return accu;
+}
+
+
 int one() {
 
 	int count = 0;
@@ -75,55 +89,65 @@ int one() {
 		for (int from = 0; from <= to; from++)
 			if ( GetPartialSum(from, to) % mans == 0) {
 				count++;
-				cout << "from:" << from << "to:" << to << endl;
 			}
 	}
-	return count;
+	return count% 20091101;
 }
 
-int two(const int from, const int to, int count) {
+int two(const V2INT range) {
 
-	if (from >= boxes || to >= boxes) {
-		return count;
-	}
-	if (from > to)
-		return count;
+	int val=INFINITY;
+	auto it = range.begin();
+	while (it != range.end()) {
 
-	int val = INFINITY;
-	if (memo[from][to] != EMPTY)
-		return count;
-	else {
-		val = memo[from][to] = GetPartialSum(from, to);
+		val = max(isValidatedRangedSum(*it, mans), val);
+
+		it++;
 	}
 
-	if (val%mans == 0) {
-		count++;
-		cout << "from:" << from << "to:" << to << endl;
-	}
-
-	return max(two(from, to + 1, count), two(from + 1, to, count));
+	return val;
 }
 
+V2INT GetRange(VINT ary, C_INT boxes, C_INT begin, int sum) {
+
+	if (sum == boxes) {
+		V2INT v2;
+		v2.push_back(ary);
+		return v2;
+	}
+	if (sum>boxes) {
+		return V2INT();
+	}
+
+	V2INT v2;
+	for (int box = 1; begin+box <= boxes+1; box++) {
+		ary.push_back(box);
+		auto val = GetRange(ary, boxes, begin + 1,sum+box);
+		if(!val.empty())
+			v2.insert(v2.end(), val.begin(), val.end());
+		ary.pop_back();
+	}
+	return v2;
+}
 
 int main() {
 	int caseSize = 0;
-	scanf_s("%d", &caseSize);
+	scanf("%d", &caseSize);
 	
 	for (int i = 0; i < caseSize; i++) {
 		
-		scanf_s("%d %d", &boxes, &mans);
+		scanf("%d %d", &boxes, &mans);
 		vector<int> _dolls(boxes);
 		for (int i = 0; i < boxes; i++) {
-			scanf_s("%d ", &_dolls[i]);
+			scanf("%d ", &_dolls[i]);
 		}
 		memo = V2INT(boxes, VINT(boxes, EMPTY));
 		dolls = _dolls;
 		sums = GetSum(dolls);
+		auto range = GetRange(VINT(), boxes, 1,0);
 
 		int a = one();
-		cout << "----" << endl;
-		int b = two(0, 0, 0);
-		cout << "----" << endl;
+		int b = two(range);
 		cout << a << " " <<b << endl;
 	}
 
