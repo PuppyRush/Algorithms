@@ -5,8 +5,8 @@
 #define ASCII_BEGIN_a	 97
 #define ASCII_BEGIN_A	 65
 
-#undef INFINITY
-#define INFINITY INT32_MIN
+
+
 
 #include <iostream>
 #include <cstring>
@@ -37,14 +37,19 @@ typedef std::vector<string> VSTR;
 typedef std::vector<std::vector<char>> V2CHAR;
 typedef std::vector<char> VCHAR;
 
-#define EMPTY -1
-
+#undef INFINITY
+#define INFINITY INT32_MIN
+#define EMPTY INT32_MAX
+#define EXIST INT32_MAX-7
 int boxes;
 int mans;
 vector<int> dolls;
 V2INT memo;
 vector<int> sums;
 
+bool compare(const VINT  &a, const VINT &b){
+	return a.size() > b.size();
+}
 
 vector<int> GetSum(vector<int> vec) {
 
@@ -67,53 +72,70 @@ int GetPartialSum(int from, int to) {
 	return sums[to]-sums[from-1];
 }
 
-
-int isValidatedRangedSum(const VINT &range, C_INT mans) {
+int IsValidatedRangedSum(const VINT &range, C_INT mans) {
 	int accu = 0;
 	int prev = 0, present = 0;
-	for(int i=0 ; i < range.size() ; i++){
+	int val = INFINITY;
+	for(int i=0 ; i < range.size() ; i++, prev = present + 1){
 		present = prev + (range[i] - 1);
-		if (GetPartialSum(prev, present) % mans == 0)
+		if (memo[prev][present] == INFINITY)
+			continue;
+		else if (memo[prev][present] == EXIST)
+		{
 			accu++;
-		prev = present + 1;
+			continue;
+		}
+		else if (memo[prev][present] == EMPTY)
+			val = GetPartialSum(prev, present);
 		
+		if (val % mans == 0) {
+			accu++;
+			memo[prev][present] = EXIST;
+		}
+		else
+			memo[prev][present] = INFINITY;
 	}
 	return accu;
 }
 
+long one(long count, int from, int to) {
+	
+	if (from >= boxes || to >= boxes)
+		return count;
+	if (from > to)
+		return count;
 
-int one() {
-
-	int count = 0;
-	for (int to = 0; to < boxes; to++) {
-		for (int from = 0; from <= to; from++)
-			if ( GetPartialSum(from, to) % mans == 0) {
-				count++;
-			}
+	int val = INFINITY;
+	if (memo[from][to] == EMPTY) {
+		if ((val = GetPartialSum(from, to)) % mans == 0) {
+			memo[from][to] = EXIST;
+			count++;
+		}
+		else {
+			memo[from][to] = INFINITY;
+		}
 	}
-	return count% 20091101;
+
+	count = one(count, from + 1, to);
+	count = one(count, from, to + 1);
+	return count;
 }
 
 int two(const V2INT range) {
-
 	int val=INFINITY;
-	auto it = range.begin();
-	while (it != range.end()) {
-
-		val = max(isValidatedRangedSum(*it, mans), val);
-
-		it++;
+	for (auto it = range.begin(); it != range.end(); it++) {
+		val = max(IsValidatedRangedSum(*it, mans), val);
+		if (val >= it->size())
+			break;
 	}
-
 	return val;
 }
+
 
 V2INT GetRange(VINT ary, C_INT boxes, C_INT begin, int sum) {
 
 	if (sum == boxes) {
-		V2INT v2;
-		v2.push_back(ary);
-		return v2;
+		return V2INT(1,ary);
 	}
 	if (sum>boxes) {
 		return V2INT();
@@ -137,19 +159,18 @@ int main() {
 	for (int i = 0; i < caseSize; i++) {
 		
 		scanf("%d %d", &boxes, &mans);
-		vector<int> _dolls(boxes);
+		dolls = vector<int>(boxes);
 		for (int i = 0; i < boxes; i++) {
-			scanf("%d ", &_dolls[i]);
+			scanf("%d ", &dolls[i]);
 		}
 		memo = V2INT(boxes, VINT(boxes, EMPTY));
-		dolls = _dolls;
 		sums = GetSum(dolls);
 		auto range = GetRange(VINT(), boxes, 1,0);
+		sort(range.begin(), range.end(), compare);
 
-		int a = one();
+		int a = one(0,0,0)% 20091101L;
 		int b = two(range);
-		cout << a << " " <<b << endl;
+		printf("%d %d\n", a, b);
 	}
 
 }
-

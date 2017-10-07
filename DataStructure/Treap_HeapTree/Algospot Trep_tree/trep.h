@@ -30,6 +30,9 @@ public:
 	Treap* merge(Treap *node1, Treap* node2);
 	Treap* erase(Treap *node, type key);
 	Treap* kth(Treap* node, int k);
+
+	///The function how many the element of treap rather than key of root
+	Treap* countLessThan(Treap<type>* root, type key);
 	void calSize();
 
 private:

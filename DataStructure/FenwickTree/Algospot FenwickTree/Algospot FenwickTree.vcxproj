@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7DD05CA8-8C7E-4F8A-9F1A-67A903CEBA68}</ProjectGuid>
+    <ProjectGuid>{A99753B9-F18D-43DA-BC60-9251CC4AE359}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>AlgospotFamilyTree_segmentTree</RootNamespace>
+    <RootNamespace>AlgospotFenwickTree</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -146,12 +146,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="segment_tree.h" />
-    <ClInclude Include="segment_tree.hpp" />
-    <ClInclude Include="tree.h" />
+    <ClInclude Include="fenwicktree.h" />
+    <ClInclude Include="fenwicktree.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sove.cpp" />
+    <ClCompile Include="solve.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

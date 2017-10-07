@@ -31,68 +31,65 @@ typedef const char C_CHAR;
 typedef const unsigned long long C_ULL;
 typedef unsigned long long ULL;
 
-typedef std::pair<int, int> PINT;
-typedef std::vector<VINT> V2INT;
-typedef const std::vector<VINT> C_V2INT;
-typedef std::vector<int> C_VINT;
+typedef const std::vector<int> C_VINT;
 typedef std::vector<int> VINT;
 typedef std::vector<string> VSTR;
+typedef const std::vector<string> C_VSTR;
+typedef std::pair<int, int> PINT;
+typedef const std::pair<int, int> C_PINT;
+typedef std::vector<VINT> V2INT;
+typedef const std::vector<VINT> C_V2INT;
+
 
 using namespace std;
 
-inline bool compare(C_VINT &a, C_VINT &b) {
 
-	C_INT size = a.size();
-	int i = 0;
-	FOR(i, size) {
-		if (a[i] != b[i])
-			return false;
+int solve(C_VINT src, const map<VINT, int> *cost) {
+
+	VINT perm(src.size());
+	int i = 0, l = 0;
+	FOR(i, src.size()) {
+		l = 0;
+		int smaller = 0;
+		FOR(l, src.size()) {
+			if (src[l] > src[i])
+				smaller++;
+		}
+		perm[i] = smaller;
 	}
-	return true;
-
+	return cost->at(perm);
 }
 
-void solve(VINT &src) {
+map<VINT,int>* preProcess(C_INT size) {
 
-	VINT solver = src;
-	sort(solver.begin(), solver.end());
+	VINT solver(size);
+	int i = 0;
+	FOR(i, size) {
+		solver[i] = i;
+	}
 
-	int order = 0;
-	queue<int> q;
-	map<int,VINT> edge;
-	map<int, V2INT> graph;
-	map<int, int> cost;
-	edge[order++] = src;
-	
+	//아직 방문하지 않은 정점.
+	queue<VINT> q;
+	map<VINT, int> *cost = new map<VINT, int>();
+	cost->insert(pair<VINT, int>(solver, 0));
+	q.push(solver);
 	while (!q.empty()) {
 		
-		int ord = q.front();q.pop();
-
-		VINT str = edge[ord];
-		V2INT *now;
-		if (edge.find(ord) != edge.end()) {
-			now = new V2INT();
-			graph[ord] = *now;
-		}
-		else
-			now = &graph[ord];
-		ord++;
-
-		for (int i = 2; i <= src.size(); i++) {
-			for (int l = 0; l < src.size() - i; l++) {
-				VINT dest = str;
-				reverse(dest.begin() + l, dest.begin() + i - 1);
-				if (compare(dest, solver)) {
-
+		VINT comp = q.front(); 
+		q.pop();
+		int _cost = cost->at(comp);
+		for (int i = 0; i < size ; i++) {
+			for (int l = i + 2; l <= size - i; l++) {
+				VINT dest = comp;
+				reverse(dest.begin() + i, dest.begin() + l);
+				if (cost->count(dest) == 0) {
+					cost->insert(pair<VINT, int>(dest, _cost + 1));
+					q.push(dest);
 				}
-				if(dest)
-				edge[order] = dest;
-				now->push_back(dest);
-				q.push(order);
 			}
-			order++;
 		}
 	}
+	return cost;
 }
 
 int main() {
@@ -108,11 +105,10 @@ int main() {
 		VINT src(count);		
 		int l = 0;
 		FOR(l, count) {
-			scanf("%d ", src[l]);
+			scanf("%d", &src[l]);
 		}
-			
-
-
+		auto cost = preProcess(count);
+		cout << solve(src,cost) << endl;
 	}
 
 	return 0;

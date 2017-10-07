@@ -1,51 +1,5 @@
-#define _CRT_SECURE_NO_WARNINGS
 
-#include <iostream>
-#include <vector>
-#include <deque>
-using namespace std;
-
-#define FOR_REVERSE(i,SIZE) for( ; i >= SIZE ; i--)
-#define FOR(i,SIZE) for(i=0 ; i < SIZE ; i++)
-
-#include <iostream>
-#include <cstdlib>
-using namespace std;
-
-template <class type>
-class Treap {
-
-public:
-
-	typedef std::pair<Treap*, Treap* > TreapPair;
-
-	type key;
-	int priority, size;
-	Treap *left, *right;
-
-	Treap(type _key) :
-		key(_key), priority(rand()), size(1), left(nullptr), right(nullptr) {}
-
-
-
-	void setLeft(Treap* t) { this->left = t; calSize(); }
-	void setRight(Treap* t) { this->right = t; calSize(); }
-
-
-
-	TreapPair* splited(Treap<type> *root, type key);
-	Treap* insert(Treap<type>* root, Treap<type>* node);
-	Treap* merge(Treap *node1, Treap* node2);
-	Treap* erase(Treap *node, type key);
-	Treap* kth(Treap* node, int k);
-	void calSize();
-
-private:
-
-	Treap() {}
-
-};
-
+#include "trep.h"
 
 template <class type>
 using TreapPair = pair<Treap<type>*, Treap<type>* >;
@@ -56,7 +10,7 @@ TreapPair<type>* Treap<type>::splited(Treap<type> *root, type key) {
 
 	if (root == nullptr)
 		return new TreapPair(nullptr, nullptr);
-	if (root->key < key) {
+	if (root->key < key){
 		TreapPair *p = root->splited(root->right, key);
 		root->setRight(p->first);
 		return new TreapPair(root, p->second);
@@ -74,7 +28,7 @@ Treap<type>* Treap<type>::insert(Treap<type> *root, Treap<type> *node) {
 		return node;
 
 	if (root->priority < node->priority) {
-
+		
 		TreapPair *p = root->splited(root, node->key);
 		node->setLeft(p->first);
 		node->setRight(p->second);
@@ -98,9 +52,9 @@ Treap<type>* Treap<type>::merge(Treap<type> *node1, Treap<type>* node2) {
 		node2->setLeft(merge(node1, node2->left));
 		return node2;
 	}
-
+	
 	node1->setRight(merge(node1->right, node2));
-	return node1;
+	return node1;	
 }
 
 template <class type>
@@ -131,7 +85,7 @@ void Treap<type>::calSize() {
 }
 
 template <class type>
-Treap<type>* Treap<type>::kth(Treap<type> *node, int k) {
+Treap<type>* Treap<type>::kth(Treap<type> *node, type k) {
 	int left = 0;
 	if (node->left != nullptr)
 		left = node->left->size;
@@ -142,59 +96,13 @@ Treap<type>* Treap<type>::kth(Treap<type> *node, int k) {
 	return kth(node->right, k - left - 1);
 }
 
+template <class type>
+Treap<type>* Treap<type>::countLessThan(Treap<type>* root, type key) {
 
-deque<int>* solve(const vector<int> &org, const int size) {
-
-	
-	int i = 0;
-	Treap<int> *trep = new Treap<int>(++i);
-	for (i; i < size; i++) {
-		trep = trep->insert(trep, new Treap<int>(i+1));
-	}
-
-	deque<int> *result = new deque<int>();
-	
-	i = size - 1;
-	FOR_REVERSE(i, 0) {
-		int larger = org[i];
- 		Treap<int> *p = trep->kth(trep,i + 1 - larger);
-		result->push_front(p->key);
-		trep = trep->erase(trep, p->key);
-	}
-	return result;
-}
-
-int main() {
-
-	vector<deque<int>*> result;
-	int caseSize = 0;
-	scanf("%d", &caseSize);
-
-	int i = 0;
-	FOR(i, caseSize) {
-
-
-		int size = 0;
-		scanf("%d", &size);
-		while (getchar() != '\n');
-
-		int l = 0;
-		vector<int> seq(size);
-
-		FOR(l, size) {
-			scanf("%d", &seq[l]);
-		}
-
-		auto v = solve(seq, size);
-		result.push_back(v);
-	}
-
-	i = 0;
-	FOR(i, result.size()) {
-
-		int l = 0;
-		FOR(l, result[i]->size())
-			cout << result[i]->at(l) << " ";
-		cout << "\n";
-	}
+	if (root == nullptr)
+		return 0;
+	if (root->key >= key)
+		return countLessThan(root->left, key);
+	int count = (root->left ? root->left->size() : 0);
+	return count + 1 + countLessThan(root->right, key);
 }

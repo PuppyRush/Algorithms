@@ -15,18 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tree.h">
+    <ClInclude Include="fenwicktree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="segment_tree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="segment_tree.hpp">
+    <ClInclude Include="fenwicktree.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sove.cpp">
+    <ClCompile Include="solve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
