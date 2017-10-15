@@ -155,7 +155,7 @@ V2INT GetRange(VINT ary, C_INT boxes, C_INT begin, int sum) {
 int main() {
 	int caseSize = 0;
 	scanf("%d", &caseSize);
-	
+	ConsoleApplication1
 	for (int i = 0; i < caseSize; i++) {
 		
 		scanf("%d %d", &boxes, &mans);
