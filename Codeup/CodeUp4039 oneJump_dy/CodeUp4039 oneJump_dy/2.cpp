@@ -35,7 +35,7 @@ typedef std::vector<string> VSTR;
 typedef std::vector<std::vector<char>> V2CHAR;
 typedef std::vector<char> VCHAR;
 typedef long long LL;
-
+#define INT_MAX 123456789
 using namespace std;
 
 stack<pair<int,int>> s;
@@ -46,37 +46,47 @@ inline V2INT DIR(int h, int w) {
 	
 }
 
-bool solve(C_INT height, C_INT width, int h, int w, int exHigh) {
 
+bool result;
+int solve(C_INT height, C_INT width, int h, int w, int exHigh) {
+
+	if (result) {
+		return s.size();
+	}
 	if (height - 1 == h && width - 1 == w)
 	{
-		return true;
+		s.push(make_pair(h, w));
+		result = true;
+		return s.size();
 	}
-	else if (h == -1 || w == -1 || h == height || w == width ) {
-		return false;
+	else if ( !(h==0 && w==0) && s.empty()) {
+		result = true;
+		return INT_MAX;
+	}
+	else if (h == -1 || w == -1 || h == height || w == width ){
+		return INT_MAX;
 	}
 	else if (visited[h][w]) {
-		return false;
+		return INT_MAX;
 	}
 	
 	int high = maze[h][w]-exHigh;
 	if (!(high >= -1 && high <= 1)) {
-		return false;
+		return INT_MAX;
 	}
-
+	//cout << h << " " << w << endl;
 	s.push(make_pair(h, w));
 	visited[h][w] = true;
 
-	bool res = false;
-	res |=solve(height, width, h + 1, w, maze[h][w]);
-	res |= solve(height, width, h, w+1, maze[h][w]);
-	res |= solve(height, width, h -1, w, maze[h][w]);
-	res |= solve(height, width, h, w-1, maze[h][w]);
+	int val = INT_MAX;
+	val = min(solve(height, width, h, w - 1, maze[h][w]), val);
+	val = min(solve(height, width, h + 1, w, maze[h][w]), val);
+	val = min(solve(height, width, h - 1, w, maze[h][w]), val);
+	val = min(solve(height, width, h, w + 1, maze[h][w]), val);
 
-	if (!res)
-		s.pop();
+	if (!result)s.pop();
 
-	return res;
+	return val;
 }
 
 int main() {
@@ -94,11 +104,30 @@ int main() {
 		}
 	}
 
-	if (solve(height, width, 0, 0, maze[0][0]))
-		cout << s.size();
+	int val = solve(height, width, 0, 0, maze[0][0]);
+	if (val == INT_MAX)
+		cout << 0;
+	else
+		cout << val;
+	//cout << s.size();
+
+	//while (!s.empty()) {
+	//	cout << s.top().first << " " << s.top().second << endl;
+	//	s.pop();
+	//}
 
 	for (int i = 0; i < height; i++) {
 		delete maze[i];
 	}
 	delete [] maze;
 }
+
+//8 8
+//5 6 4 4 3 2 3 4
+//6 3 3 5 5 2 1 5
+//5 4 4 3 3 7 1 4
+//6 4 7 7 4 3 2 6
+//5 3 7 7 7 3 7 4
+//6 7 3 6 6 3 3 7
+//5 6 5 6 5 6 4 4
+//3 7 5 3 6 6 5 4
