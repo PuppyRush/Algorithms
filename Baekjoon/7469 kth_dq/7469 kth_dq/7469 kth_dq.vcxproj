@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{10920FAF-86C8-429D-83DA-3385A2F17A6D}</ProjectGuid>
+    <ProjectGuid>{1FA2A0D7-41B0-4983-87B4-5E57AF5FE8D6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Algospotjosephus_linkedlist</RootNamespace>
+    <RootNamespace>My7469kth_dq</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -146,9 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="main2.cpp" />
-    <ClCompile Include="main3 - 복사본.cpp" />
+    <ClCompile Include="solve.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

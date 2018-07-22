@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{10920FAF-86C8-429D-83DA-3385A2F17A6D}</ProjectGuid>
+    <ProjectGuid>{481E0D31-DDAB-453C-AF31-FF791061AC09}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Algospotjosephus_linkedlist</RootNamespace>
+    <RootNamespace>My11403findway</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,8 +147,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="main2.cpp" />
-    <ClCompile Include="main3 - 복사본.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

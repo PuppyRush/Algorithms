@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{10920FAF-86C8-429D-83DA-3385A2F17A6D}</ProjectGuid>
+    <ProjectGuid>{D9178FE5-1365-4FD0-B6B9-46349EB65FAA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Algospotjosephus_linkedlist</RootNamespace>
+    <RootNamespace>My2017summernhnpretest1</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -146,9 +146,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="main2.cpp" />
-    <ClCompile Include="main3 - 복사본.cpp" />
+    <ClCompile Include="1.cpp" />
+    <ClCompile Include="2.cpp" />
+    <ClCompile Include="3.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{10920FAF-86C8-429D-83DA-3385A2F17A6D}</ProjectGuid>
+    <ProjectGuid>{4795878E-5899-48BB-82F7-58E6BF605511}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Algospotjosephus_linkedlist</RootNamespace>
+    <RootNamespace>SegementTree</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -146,9 +146,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="main2.cpp" />
-    <ClCompile Include="main3 - 복사본.cpp" />
+    <ClInclude Include="segment_tree.h" />
+    <ClInclude Include="segment_tree.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="seg_tree.cpp" />
+    <ClCompile Include="solve.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
