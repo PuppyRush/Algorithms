@@ -5,33 +5,67 @@
 #include <algorithm>
 
 #define GENETIC_TYPE int
-#define GENETIC_SIZE 32
-#define POOL_SIZE 512
-#define COUNT 10000
-#define CUT	3
-#define SELECTION  12
-#define MUTATION 4
+constexpr auto GENETIC_SIZE = 30ul;
+constexpr auto POOL_SIZE = 512ul;
+auto INTEGER_MAX = (int)pow(2ul, GENETIC_SIZE);
+constexpr auto LOOP_COUNT = 1000ul;
+constexpr auto CUT = 3ul;
+constexpr auto SELECTION = 12ul;
+constexpr auto MUTATION = 4ul;
+
+using namespace std;
+
+void printGraph(vector<int> ary)
+{
+	sort(ary.begin(), ary.end());
+
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
+
+	int per = INTEGER_MAX / 10;
+
+	int count[10];
+	memset(count, 0, sizeof(int) * 10);
+
+	int sum = 0;
+	for (auto val : ary)
+	{
+		count[val / per]++;
+	}
+
+	for (int i = 0; i < 10; i++)
+		sum += count[i];
+
+	float ratio[10];
+	memset(ratio, 0, sizeof(float) * 10);
+
+	for (int i = 0; i < 10; i++)
+		ratio[i] = count[i] / (float)sum;
+
+	for (int i = 0; i < per; i++)
+	{
+		
+	}
+
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
+}
 
 int main()
 {
-	using namespace std;
-
 	std::random_device rd;  
 	std::mt19937 gen(rd()); 
-	std::uniform_int_distribution<> dis(0,GENETIC_SIZE);
+	std::uniform_int_distribution<> mutationDis(0,GENETIC_SIZE-1);
 	std::uniform_int_distribution<> dis(SELECTION, POOL_SIZE);
-	std::uniform_int_distribution<> random(0, numeric_limits<GENETIC_TYPE>::max());
+	std::uniform_int_distribution<> random(0, INTEGER_MAX);
 
 	//initializing
 	vector<GENETIC_TYPE> geneticPool;
 	for (int i = 0; i < POOL_SIZE; i++)
 	{
-		int pos = dis(gen);
 		geneticPool.push_back(random(gen));
 	}
 
 	int count = 0;
-	while (count < COUNT) //loop generation
+	while (count < LOOP_COUNT) //loop generation
 	{
 		//evaluation
 		std::sort(geneticPool.begin(), geneticPool.end(), std::less<GENETIC_TYPE>());
@@ -48,11 +82,15 @@ int main()
 		//mutation
 		for (int i = 0; i < SELECTION; i++)
 		{
-			for (int i = 0; i < MUTATION; i++)
+			for (int l = 0; l < MUTATION; l++)
 			{
-				
+				geneticPool.at(i) ^= (1 << mutationDis(gen));
 			}
 		}
+
+		printGraph(geneticPool);
+
+		//_sleep(100);
 	}
 
 }
