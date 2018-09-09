@@ -22,8 +22,9 @@ void printGraph(vector<int> ary)
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
 
 	int per = INTEGER_MAX / 10;
+	constexpr unsigned ratioCount = 10;
 
-	int count[10];
+	int count[ratioCount];
 	memset(count, 0, sizeof(int) * 10);
 
 	int sum = 0;
@@ -32,19 +33,52 @@ void printGraph(vector<int> ary)
 		count[val / per]++;
 	}
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < ratioCount; i++)
 		sum += count[i];
 
-	float ratio[10];
+	float ratio[ratioCount];
 	memset(ratio, 0, sizeof(float) * 10);
 
-	for (int i = 0; i < 10; i++)
-		ratio[i] = count[i] / (float)sum;
+	for (int i = 0; i < ratioCount; i++)
+		ratio[i] = count[i] / (float)sum * 100.;
 
-	for (int i = 0; i < per; i++)
+	for (int i = ratioCount; i >= 0; i--)
 	{
-		
+		int number = i * 10;
+		char buf[10];
+		memset(buf, 0, 10);
+		sprintf_s(buf, "=%2d", number);
+		printf("%s", buf);
+
+		for (int l = 0; l < ratioCount; l++)
+		{
+			printf("   ");
+			int _ratio = static_cast<unsigned>(ratio[l]);
+			if (_ratio >= i * 10)
+			{
+				printf("#");
+			}
+			else
+				printf(" ");
+			
+			printf("    ");
+
+		}
+
+			printf("\n");
 	}
+
+	for (int i = 0; i < ratioCount; i++)
+	{
+		printf("   ");
+		
+		char buf[10];
+		memset(buf, 0, 10);
+		sprintf_s(buf, "%2d~%2d", i*10, (i+1)*10);
+		printf("%s", buf);
+	}
+
+	printf("\n\n");
 
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
 }
@@ -54,7 +88,7 @@ int main()
 	std::random_device rd;  
 	std::mt19937 gen(rd()); 
 	std::uniform_int_distribution<> mutationDis(0,GENETIC_SIZE-1);
-	std::uniform_int_distribution<> dis(SELECTION, POOL_SIZE);
+	std::uniform_int_distribution<> dis(SELECTION, POOL_SIZE-1);
 	std::uniform_int_distribution<> random(0, INTEGER_MAX);
 
 	//initializing

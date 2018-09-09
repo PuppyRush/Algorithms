@@ -1,3 +1,19 @@
+
+//https://www.acmicpc.net/problem/2270
+
+/*
+
+7
+2 1 4
+2 1
+3
+7 6 5 4
+
+
+3
+4
+
+*/
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -40,14 +56,11 @@ typedef std::pair<int, int> PINT;
 typedef long long LL;
 
 
-
 const int stickCount = 3;
 vector<std::stack<int>> HANOI(stickCount);
 bool isEnd = false;
 
 inline bool move(int to, int from, vector<std::stack<int>> &hanoi) {
-	if (!(to >= 0 && to < stickCount) || !(from >= 0 && from < stickCount))
-		return false;
 	if (hanoi[from].empty())
 		return false;
 	if ( !hanoi[to].empty() && hanoi[from].top() > hanoi[to].top())
@@ -64,15 +77,13 @@ inline PINT min(const PINT &l, const PINT &r)  {
 
 const PINT FAIL = PINT(-1, 123456789);
 
-PINT solve(int now, C_INT pre, C_INT prepre, C_INT diskCount, C_INT moveCount, vector<std::stack<int>> hanoi) {
+PINT solve(int now, C_INT pre, C_INT diskCount, C_INT moveCount, vector<std::stack<int>> hanoi, C_INT moving) {
 
-	if (prepre == now)
+	if (moving == stickCount)
 		return FAIL;
-	if (now == -1)
-		now = stickCount - 1;
-	else if (now == stickCount)
-		now = 0;
-	if (!move(now, pre, hanoi))
+	if (pre == now)
+		return FAIL;
+	if (pre!=-1 && !move(now,pre, hanoi))
 		return FAIL;
 
 	auto it = find_if(hanoi.begin(), hanoi.end(), [&](const SINT l)->bool {return l.size() == diskCount ? true : false; });
@@ -81,9 +92,9 @@ PINT solve(int now, C_INT pre, C_INT prepre, C_INT diskCount, C_INT moveCount, v
 	}
 
 	PINT p(now, moveCount);
-	p = min(solve(now + 1, now, pre, diskCount, moveCount + 1,hanoi), p);
-	p = min(solve(now -1 , now, pre, diskCount, moveCount + 1,hanoi), p);
-
+	for (int i = 1; i < stickCount; i++) {
+		p = min(solve( (now + i)%stickCount, now, diskCount, moveCount + 1, hanoi, moving+1), p);
+	}
 	return p;
 }
 
@@ -91,7 +102,7 @@ int main() {
 	
 	int size = 0;
 	vector<int> count(stickCount, 0);
-
+	scanf_s("%d", &size);
 	scanf_s("%d %d %d", &count[0], &count[1], &count[2]);
 
 	for (int l = 0; l < stickCount; l++) {
@@ -104,7 +115,7 @@ int main() {
 
 	PINT p(0, 123456789);
 	for (int i = 0; i < stickCount; i++) {
-		p = min(solve(i, 0,-1, size, 123456789,HANOI), p);
+		p = min(solve(i, -1, size, 123456789,HANOI,0), p);
 	}
 	cout << p.first << endl << p.second;
 }
