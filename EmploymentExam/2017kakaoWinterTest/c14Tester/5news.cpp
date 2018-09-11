@@ -47,7 +47,7 @@
 //	PAIR v;
 //	bool isChar = false;
 //	deque<char> q;
-//	for each(char c in str) {
+//	for (char c : str) {
 //		if (c >= 'a' && c <= 'z'){
 //			q.push_back(c);
 //		}
@@ -69,10 +69,10 @@
 //
 //	std::multiset< pair<char, char>> p1, p2;
 //
-//	for each(auto p in pair1) {
+//	for(auto p : pair1) {
 //		p1.insert(p);
 //	}
-//	for each(auto p in pair2) {
+//	for (auto p : pair2) {
 //		p2.insert(p);
 //	}
 //	const auto size = p1.size() + p2.size();
@@ -90,21 +90,19 @@
 //	if (intersection == 0)
 //		return 65536;
 //	else
-//		return 65536 * (intersection/sum);
+//		return 65536. * (intersection/sum);
 //}
 //
-//int main() {
-//
-//	auto buf1 = new char(1000);
-//	auto buf2 = new char(1000);
-//
-//	scanf("%s %s", buf1, buf2);
-//
-//	string str1(buf1);
-//	string str2(buf2);
+//int solution(string str1, string str2) {
 //
 //	auto set1 = GetSet(str1);
 //	auto set2 = GetSet(str2);
 //
-//	cout << GetZ(set1, set2);
+//	return GetZ(set1, set2);
+//}
+//
+//int main() {
+//
+//	solution("ABab", "abAB");
+//	
 //}
