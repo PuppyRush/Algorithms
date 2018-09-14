@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include <bitset>
 #include <algorithm>
 #include <functional>   // std::multiplies
@@ -38,7 +39,10 @@ typedef std::vector<string> VSTR;
 typedef std::vector<std::vector<char>> V2CHAR;
 typedef std::vector<char> VCHAR;
 
-short graph[ASCII_COUNT_ALPHABET][ASCII_COUNT_ALPHABET];
+typedef struct tree
+{
+	std::map<pair<char,char>, tree*> graph;
+};
 
 template <class T>
 deque<T> getBetweenRange(T begin, T end)
@@ -50,72 +54,98 @@ deque<T> getBetweenRange(T begin, T end)
 }
 
 vector<int> answer;
-map<string, size_t> dict;
+tree treehead;
+std::unordered_map<string, size_t> dict;
 size_t idx;
 
-int recursive(string& str, string::iterator it)
+void getLengtest(deque<char>& q, char now, string& accu, tree* node)
 {
-	if (str.end() == it)
-		return -1;
+	accu.push_back(now);
+	q.pop_front();
+	if (q.empty())
+		return;
 
-	if (begin == end)
-		end++;
+	const char next = q.front();
 
-	string buf(begin, end);
-	if (dict.count(buf))
-	{
-		answer.push_back(dict.at(buf));
-	}
+	auto pair = make_pair(now, next);
+	if (node->graph.count(pair))
+		getLengtest(q, next, accu, node->graph.at(pair));
 	else
 	{
-		answer.push_back(idx);
-		recursive(str, begin+1, end);
+		node->graph.erase(make_pair(now, 0));
+		node->graph.insert(make_pair(pair,new tree));
 	}
+}
 
+int recursive2(deque<char>& q)
+{
+	if (q.empty())
+		return -1;
+
+	const char now = q.front();
+	string str;
+	str.reserve(20);
+	getLengtest(q, now, str, &treehead);
+
+	if (dict.count(str))
+		answer.push_back(dict.at(str));
+
+	if (q.empty())
+		return -1;
+
+	const char next = q.front();
+	str.push_back(next);
+	if (dict.count(str)==0)
+		dict.insert(make_pair(str, idx++));
 	
+	recursive2(q);
+	
+}
 
+void noderemover(tree *node)
+{
+	if (node == nullptr)
+		return;
+
+	for (auto child : node->graph)
+	{
+		noderemover(child.second);
+		delete child.second;
+	}
+	
 }
 
 vector<int> solution(string msg) {
 	
-	memset(graph, -1, sizeof(short)*ASCII_COUNT_ALPHABET);
-
 	answer.reserve(1000);
 	
 	auto chars = getBetweenRange('A', 'Z');
 	idx = 1;
 
 	for (auto c : chars)
-		dict.insert(make_pair(string{ c }, idx++));
-
-	recursive(msg, msg.begin(), msg.begin());
-
-	string buf;
-	buf.reserve(msg.size());
-	buf.push_back(*msg.begin());
-
-	auto begin = msg.begin();
-	auto end = msg.begin()+1;
-	while(end != msg.end())
 	{
-		string buf(begin, end);
-		if (dict.count(buf))
-		{
-			answer.push_back(dict.at(buf));
-			end++;
-		}
-		else
-		{
-			answer.push_back(idx);
-			dict.insert(make_pair(buf, idx++));
-			begin++;
-		}
+		string s{ c };
+		dict.insert(make_pair(s, idx++));
+		treehead.graph.insert(make_pair( make_pair(c,0), new tree));
 	}
 	
+
+	string str;
+	str.reserve(1000);
+
+	std::deque<char> q;
+	for (const char c : msg)
+		q.push_back(c);
+
+	recursive2(q);
+	str.clear();
+	noderemover(&treehead);
+	
+
 	return answer;
 }
 int main() 
 {
-	solution("KAKAO");
+	solution("ABABABABABABABAB");
 
 }
