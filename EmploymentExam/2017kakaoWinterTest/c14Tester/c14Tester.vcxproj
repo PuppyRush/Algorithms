@@ -116,6 +116,7 @@
     <ClCompile Include="5news.cpp" />
     <ClCompile Include="6board.cpp" />
     <ClCompile Include="kakaofriend.cpp" />
+    <ClCompile Include="shuttleBus.cpp" />
     <ClCompile Include="stdfunction.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
