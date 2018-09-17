@@ -109,12 +109,22 @@
 //
 //void goDown()
 //{
+//	int h[30];
+//	memset(h, 0, sizeof(int) * 30);
+//
+//	//for (const auto b : removed)
+//	//{
+//	//	h[b.]++;
+//	//	blocks[b.y][b.x].x = X;
+//	//}
+//
+//	
+//
 //	for (const auto x_pair : removed)
 //	{
 //		const auto x = x_pair.first;
 //		const auto y_set = x_pair.second;
 //
-//		set<coord, greater<coord>> exclusived;
 //		for (int _y = 0; _y < height; _y++)
 //			exclusived.insert(_y);
 //
