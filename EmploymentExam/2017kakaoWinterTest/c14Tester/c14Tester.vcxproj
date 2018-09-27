@@ -117,7 +117,7 @@
     <ClCompile Include="6board.cpp" />
     <ClCompile Include="kakaofriend.cpp" />
     <ClCompile Include="stdfunction.cpp" />
-    <ClCompile Include="compression.cpp" />
+    <ClCompile Include="compression.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

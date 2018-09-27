@@ -36,7 +36,7 @@
     <ClCompile Include="kakaofriend.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="compression.cpp">
+    <ClCompile Include="compression.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
