@@ -4,6 +4,7 @@
 //#include <set>
 //#include <map>
 //#include <list>
+//#include <deque>
 //
 //using namespace std;
 //
@@ -124,7 +125,6 @@
 //		const auto x = x_pair.first;
 //		const auto y_set = x_pair.second;
 //
-//		set<short> exclusived;
 //		for (int _y = 0; _y < height; _y++)
 //			exclusived.insert(_y);
 //
@@ -133,32 +133,20 @@
 //			exclusived.erase(y);
 //		}
 //
-//		vector<Block> newColumn;
-//		newColumn.reserve(height);
-//
-//		coord ex_y = coord(0);
-//		for ( ; ex_y < exclusived.size() ; ex_y++)
+//		deque<Block> newColumn;
+//		for (auto y : exclusived)
 //		{
-//			newColumn.push_back(Block(blocks[ex_y][x].b, x, ex_y));
+//			newColumn.push_back(Block(blocks[y][x].b, x, y));
 //		}
-//		for (; ex_y < height; ex_y++)
+//		for (auto y : y_set)
 //		{
-//			newColumn.push_back(Block(X, x, ex_y));
+//			newColumn.push_back(Block(X, x, y));
 //		}
 //		for (coord y = height-1; y >= 0 ; y--)
 //		{
-//			blocks[y][x] = newColumn[y];
-//		}
-//	}
-//
-//	for (int x = 0; x < width; x++)
-//	{
-//		for (int y = height - 1; y >= 1; y--)
-//		{
-//			if (blocks[y][x].b == X)
-//			{
-//				blocks[y][x].b = blocks[y - 1][x].b;
-//			}
+//			blocks[y][x] = newColumn.front();
+//			blocks[y][x].y = y;
+//			newColumn.pop_front();
 //		}
 //	}
 //}
@@ -192,14 +180,15 @@
 //		answer += removedSize;
 //		removed.clear();
 //
-//		for (int y = height-1; y >= 0; y--)
+//		for (int y = 0 ; y < height ; y++)
 //		{
 //			cout << "\n";
-//			for (int x = width-1; x >= 0 ; x--)
+//			for (int x = 0 ; x < width ; x++)
 //			{
 //				printf("%c", blocks[y][x].b);
 //			}
 //		}
+//		cout << "\n-------------------\n";
 //	}
 //
 //	return answer;
@@ -208,11 +197,9 @@
 //int main()
 //{
 //	vector<string> str;
-//	str.push_back("TTTANT");
-//	str.push_back("RRFACC");
-//	str.push_back("RRRFCC");
-//	str.push_back("TRRRAA");
-//	str.push_back("TTMMMF");
-//	str.push_back("TMMTTJ");
-//	solution(6, 6, str);
+//	str.push_back("CCBDE");
+//	str.push_back("AAADE");
+//	str.push_back("AAABF");
+//	str.push_back("CCBBF");
+//	solution(4,5, str);
 //}
