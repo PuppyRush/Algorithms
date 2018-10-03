@@ -1,8 +1,10 @@
 #include <string>
 #include <vector>
+#include <stack>
 
 using namespace std;
 
+stack<pair<int, int>> st;
 bool visit[100][100];
 bool map[100][100];
 int width;
@@ -30,6 +32,7 @@ void find(const int row, const int col, const int pre_row, const int pre_col)
 		return;
 
 	//visit[row][col] = true;
+	st.push(make_pair(row, col));
 
 	for (int i = 0; i < 4; i++)
 	{
