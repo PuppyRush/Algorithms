@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "joystick", "joystick\joystick.vcxproj", "{E40AA812-87FE-4BD6-B713-FFD6E0A71666}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E40AA812-87FE-4BD6-B713-FFD6E0A71666}.Debug|x64.ActiveCfg = Debug|x64
+		{E40AA812-87FE-4BD6-B713-FFD6E0A71666}.Debug|x64.Build.0 = Debug|x64
+		{E40AA812-87FE-4BD6-B713-FFD6E0A71666}.Debug|x86.ActiveCfg = Debug|Win32
+		{E40AA812-87FE-4BD6-B713-FFD6E0A71666}.Debug|x86.Build.0 = Debug|Win32
+		{E40AA812-87FE-4BD6-B713-FFD6E0A71666}.Release|x64.ActiveCfg = Release|x64
+		{E40AA812-87FE-4BD6-B713-FFD6E0A71666}.Release|x64.Build.0 = Release|x64
+		{E40AA812-87FE-4BD6-B713-FFD6E0A71666}.Release|x86.ActiveCfg = Release|Win32
+		{E40AA812-87FE-4BD6-B713-FFD6E0A71666}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D643BBCD-D61A-49F2-9B58-0B78791EB5AD}
+	EndGlobalSection
+EndGlobal
