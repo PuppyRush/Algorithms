@@ -1,41 +1,70 @@
 #include <string>
-#include <vector>
+#include <set>
 #include <algorithm>
-constexpr auto ALP = 'Z'-'A';
+#include <string.h>
 
 using namespace std;
+size_t len;
 
-bool still[20];
-int total = 0;
-int recursive(const string& str, const string& dest, int idx, bool isRight, int cnt)
+int recursive(string str,const string& dest, int idx, bool isRight, int cnt, set<int> memo)
 {
-	if (total == dest.size())
+	if (memo.empty())
 		return cnt;
 
-	if (isRight && idx == str.size())
-		idx = 0;
-	else if (!isRight && idx == -1)
-		idx = str.size() - 1;
-	cnt++;
-
-	if (!still[idx])
+	if (isRight)
 	{
-		const char c = str[idx];
-		const char destc = dest[idx];
-		cnt += std::min(destc - c, 'Z' - destc - ('A' - c));
+		if (idx == str.size())
+			idx = 0;
+		while (!memo.count(idx))
+		{
+			idx++;
+			cnt++;
+			if (idx == str.size())
+				idx = 0;
 
-		total++;
-		still[idx] = true;
+		}
+	}
+	else
+	{
+		if (idx == -1)
+			idx = str.size() - 1;
+		while (!memo.count(idx))
+		{
+			idx--;
+			cnt++;
+			if (idx == -1)
+				idx = str.size() - 1;
+
+		}
 	}
 
-	return std::min(recursive(str, dest, idx + 1, true, cnt), recursive(str, dest, idx - 1, false, cnt));
+	const char c = str[idx];
+	const char destc = dest[idx];
+	if (c != destc)
+	{
+		cnt += std::min(destc - c, 'Z' - destc + ('A' - c) + 1);
+		str[idx] = destc;
+		memo.erase(idx);
+	}
+	
+
+	auto l = recursive(str, dest, idx + 1, true, cnt+1, memo);
+	auto r = recursive(str, dest, idx - 1, false, cnt+1, memo);
+	if (memo.empty())
+		return std::min(cnt, std::min(l, r));
+	else
+		return std::min(l, r);
 }
 
 int solution(string name) {
-	int answer = 0;
-	total = 0;
+	set<int> memo;
+	for (auto i=0 ; i < name.size() ; i++)
+		if (name[i] != 'A')
+			memo.insert(i);
+
+	len = name.size();
 	string ori(name.size(), 'A');
-	return recursive(ori, name, 0, true, 0);
+	return recursive(ori, name, 0, true, 0, memo);
 }
 
 int main()
