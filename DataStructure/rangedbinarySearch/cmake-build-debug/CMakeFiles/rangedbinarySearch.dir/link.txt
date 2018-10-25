@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/rangedbinarySearch.dir/main.cpp.o  -o rangedbinarySearch 
