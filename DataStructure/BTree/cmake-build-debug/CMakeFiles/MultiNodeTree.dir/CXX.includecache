@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/chaed/projects/Algorithms/DataStructure/BTree/BTree.cpp
+BTree.h
+/home/chaed/projects/Algorithms/DataStructure/BTree/BTree.h
+
+/home/chaed/projects/Algorithms/DataStructure/BTree/BTree.h
+vector
+-
+unordered_map
+-
+memory
+-
+cassert
+-
+

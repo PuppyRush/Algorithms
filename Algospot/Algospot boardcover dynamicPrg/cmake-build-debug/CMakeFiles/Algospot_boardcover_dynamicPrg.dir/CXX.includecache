@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/chaed/projects/Algorithms/Algospot/Algospot boardcover dynamicPrg/main2.cpp
+iostream
+-
+memory
+-
+set
+-
+vector
+-
+array
+-
+

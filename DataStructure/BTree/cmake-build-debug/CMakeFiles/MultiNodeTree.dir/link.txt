@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/MultiNodeTree.dir/main.cpp.o CMakeFiles/MultiNodeTree.dir/BTree.cpp.o  -o MultiNodeTree 

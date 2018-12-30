@@ -1,0 +1,3 @@
+/home/chaed/projects/Algorithms/Algospot/Algospot boardcover dynamicPrg/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/chaed/projects/Algorithms/Algospot/Algospot boardcover dynamicPrg/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/chaed/projects/Algorithms/Algospot/Algospot boardcover dynamicPrg/cmake-build-debug/CMakeFiles/Algospot_boardcover_dynamicPrg.dir

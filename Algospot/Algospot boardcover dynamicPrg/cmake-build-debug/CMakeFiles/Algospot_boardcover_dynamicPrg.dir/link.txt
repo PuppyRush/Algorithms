@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Algospot_boardcover_dynamicPrg.dir/main.cpp.o CMakeFiles/Algospot_boardcover_dynamicPrg.dir/main2.cpp.o  -o Algospot_boardcover_dynamicPrg 

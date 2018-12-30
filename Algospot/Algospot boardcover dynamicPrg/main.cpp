@@ -1,6 +1,8 @@
+/*
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
+#include <memory>
 
 using namespace std;
 
@@ -37,7 +39,8 @@ int figureType[4][3][2] = {
 };
 const int TYPE_KIND_NUMBER = 4;
 
-int main() {
+int main()
+{
 
 	int *result;
 	int caseSize = 0;
@@ -48,7 +51,8 @@ int main() {
 
 	result = new int[caseSize];
 
-	for (int i = 0; i < caseSize; i++) {
+	for (int i = 0; i < caseSize; i++)
+	{
 
 		scanf("%d %d", &height, &width);
 		while (getchar() != '\n');
@@ -87,9 +91,6 @@ int main() {
 		else
 			result[i] = 0;
 
-	
-
-
 		for (int l = 0; l < height; l++) {
 			delete board[l];
 		}
@@ -99,12 +100,11 @@ int main() {
 
 	for (int i = 0; i < caseSize ; i++)
 		cout << result[i]<<endl;
-
-
 }
 
 
-int setRecursive(int** board, const int width, const int height) {
+int setRecursive(int** board, const int width, const int height)
+{
 
 	int sum = 0;
 	
@@ -123,7 +123,8 @@ int setRecursive(int** board, const int width, const int height) {
 
 }
 
-COORD getBlankBoard(int** board, const int width, const int height) {
+COORD getBlankBoard(int** board, const int width, const int height)
+{
 
 	COORD c;
 
@@ -139,7 +140,8 @@ COORD getBlankBoard(int** board, const int width, const int height) {
 	return c;
 }
 
-bool draw(int** board, const int width, const int height, const int x, const int y, int type, int drawKind) {
+bool draw(int** board, const int width, const int height, const int x, const int y, int type, int drawKind)
+{
 
 	bool isFine = true;
 
@@ -172,4 +174,4 @@ void draws(int **board, const int width, const int height) {
 	}
 	cout << endl;
 
-}
+}*/

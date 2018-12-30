@@ -38,7 +38,7 @@
 //	{
 //		return lhs > rhs;
 //	});
-//	
+//
 //	string non_ascending(chars.begin(), chars.end());
 //	cout << non_ascending.c_str();
 //
@@ -46,6 +46,9 @@
 
 // CMakeProject1.cpp : Defines the entry point for the application.
 //
+
+
+/// * + 숫자 로 이루어진 문자열을 파싱하여 계산하기.
 #include <cassert>
 #include <list>
 #include <map>
