@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.13)
-project(MultiNodeTree)
+cmake_minimum_required(VERSION 3.11)
+project(BTree)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(MultiNodeTree main.cpp BTree.cpp BTree.h)
+add_executable(BTree main.cpp BTree.cpp BTree.h)
