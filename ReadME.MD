@@ -7,8 +7,8 @@
 
 # Environment
 > **C++:**
-> - **Version :** C++14
-> - **Compiler:** Visual Studio 2015
+> - **Version :** C++17
+> - **Compiler:** Visual Studio 2015 / g++
 
 
 # License
