@@ -1,67 +1,86 @@
 ﻿#include <string>
 #include <vector>
 #include <algorithm>
+#include <cstring>
 
 using namespace std;
 
-char word[24];
-size_t strlens = 0;
+bool visit[50][50];
+bool word[50][50];
+static size_t strlens = 0;
+static size_t wordcnt = 0;
+vector<string> WORDS;
+string endstr;
 
-int findpath(const vector<string>& ary, const vector<string>::const_iterator it, string exstr ,const string end, int changes )
+bool isConnection(const string &lhs, const string &rhs)
 {
-	if (exstr.compare(end) == 0)
-		return changes;
-
-	int wrong = 0, i = 0;
-	for( i=0; i < strlens && wrong <2; i++)
+	int cnt = 0;
+	for (int i = 0; i < strlens && cnt < 2; i++)
 	{
-		if (exstr[i] != (*it)[i])
-			wrong++;
+		if (lhs[i] != rhs[i])
+			cnt++;
 	}
-	if (wrong >= 2)
-		return -1;
+	return cnt == 1;
+}
 
-	for (auto newit = ary.cbegin(); newit != ary.cend(); ++newit)
+vector<int> cnts;
+
+void finds(string str, int i, int cnt) {
+	if (str.compare(endstr) == 0)
 	{
-		if (newit == it || newit->compare(exstr)==0)
-			continue;
-
-		if (int paths = findpath(ary, newit, *it, end, changes + 1))
-			changes = std::min(changes, paths);
+		cnts.push_back(cnt+1);
+		printf("-----\n");
+		return;
 	}
 
-	return changes;
+	for (int end = 0; end < wordcnt; end++)
+	{
+		if (word[i][end] && !visit[i][end])
+		{
+			printf("%s->%s cnt : %d \n", WORDS[i].c_str(), WORDS[end].c_str(), cnt);
+			visit[i][end] = true;
+			finds(WORDS[end], end, cnt + 1);
+		}
+	}
 }
 
 int solution(string begin, string target, vector<string> words) {
 	int answer = 0;
+	strlens = words[0].size();
+	WORDS = words;
+	wordcnt = words.size();
+	endstr = target;
 
-	for (int i = 0; i < begin.size();)
+	for (int i = 0;  i < words.size()-1; i++)
 	{
-		if (begin[i] == target[i])
+		for (int l = i + 1; l < words.size(); l++)
 		{
-			begin.erase(i);
-			target.erase(i);
-
-			for (auto str : words)
+			if (isConnection(words[i], words[l]))
 			{
-				str.erase(i);
+				word[i][l] = true;
 			}
 		}
-		else
-			++i;
 	}
 
-	strlens = begin.size();
-	answer = findpath(words, words.cbegin(), begin, target, 0);
+	for(int i=0 ; i < words.size() ; i++)
+	{
+		if (isConnection(begin, words[i]))
+		{
+			finds(begin, i, 0);
+			memset(visit, 0, 50 * 50);
+		}
+	}
 
-	return answer;
+	if (cnts.empty())
+		return 0;
+	else
+		return *std::min_element(cnts.begin(), cnts.end());
 }
 
 int main()
 {
 	//	"hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]
 
-	solution("hit", "cog", { "hot", "dot", "dog", "lot", "log", "cog" });
+	solution("hit", "cog", { "hot", "dot", "dog", "lot", "log", "cog"});
 	return 0;
 }
